@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <header>
+    <h1><a href="/">🎬 Movie Explorer</a></h1>
+    <nav>
+      <ul class="navbar">
+        <% genres.forEach(genre => { %>
+          <li><a href="/movies/<%= genre %>"><%= genre.charAt(0).toUpperCase() + genre.slice(1) %></a></li>
+        <% }) %>
+      </ul>
+    </nav>
+  </header>

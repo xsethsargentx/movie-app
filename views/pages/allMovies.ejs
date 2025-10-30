@@ -1,0 +1,29 @@
+<%- include('../partials/header', { title: title, genres: genres }) %>
+
+<h2><%= title %> Movies</h2>
+
+<ul>
+  <% movies.forEach(movie => { %>
+    <li>
+      <a href="/movies/<%= genre %>/<%= movie.id %>"><%= movie.title %></a>
+    </li>
+  <% }) %>
+</ul>
+
+<div class="pagination">
+  <% if (currentPage > 1) { %>
+    <a href="/movies/<%= genre %>?page=<%= currentPage - 1 %>">Previous</a>
+  <% } %>
+  <% for (let i = 1; i <= totalPages; i++) { %>
+    <% if (i === currentPage) { %>
+      <strong><%= i %></strong>
+    <% } else { %>
+      <a href="/movies/<%= genre %>?page=<%= i %>"><%= i %></a>
+    <% } %>
+  <% } %>
+  <% if (currentPage < totalPages) { %>
+    <a href="/movies/<%= genre %>?page=<%= currentPage + 1 %>">Next</a>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>
