@@ -10,9 +10,10 @@
     <h1><a href="/">🎬 Movie Explorer</a></h1>
     <nav>
       <ul class="navbar">
+        <li><a href="/movies">All</a></li> <!-- NEW -->
         <% genres.forEach(genre => { %>
           <li><a href="/movies/<%= genre %>"><%= genre.charAt(0).toUpperCase() + genre.slice(1) %></a></li>
         <% }) %>
-      </ul>
-    </nav>
+  </ul>
+</nav>
   </header>

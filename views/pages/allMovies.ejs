@@ -1,29 +1,41 @@
 <%- include('../partials/header', { title: title, genres: genres }) %>
 
-<h2><%= title %> Movies</h2>
+<h2><%= title %></h2>
 
 <ul>
   <% movies.forEach(movie => { %>
     <li>
-      <a href="/movies/<%= genre %>/<%= movie.id %>"><%= movie.title %></a>
+      <% if (movie.genre) { %>
+        <a href="/movies/<%= movie.genre %>/<%= movie.id %>"><%= movie.title %></a>
+      <% } else { %>
+        <span><%= movie.title %></span>
+      <% } %>
     </li>
   <% }) %>
 </ul>
 
 <div class="pagination">
   <% if (currentPage > 1) { %>
-    <a href="/movies/<%= genre %>?page=<%= currentPage - 1 %>">Previous</a>
+    <a href="<%= genre ? '/movies/' + genre + '?page=' + (currentPage - 1) : '/movies?page=' + (currentPage - 1) %>">Previous</a>
   <% } %>
+
   <% for (let i = 1; i <= totalPages; i++) { %>
     <% if (i === currentPage) { %>
       <strong><%= i %></strong>
     <% } else { %>
-      <a href="/movies/<%= genre %>?page=<%= i %>"><%= i %></a>
+      <a href="<%= genre ? '/movies/' + genre + '?page=' + i : '/movies?page=' + i %>"><%= i %></a>
     <% } %>
   <% } %>
+
   <% if (currentPage < totalPages) { %>
-    <a href="/movies/<%= genre %>?page=<%= currentPage + 1 %>">Next</a>
+    <a href="<%= genre ? '/movies/' + genre + '?page=' + (currentPage + 1) : '/movies?page=' + (currentPage + 1) %>">Next</a>
   <% } %>
 </div>
+
+<p>
+  <a href="<%= genre ? '/movies/' + genre : '/movies' %>">
+    Back to <%= genre ? genre.charAt(0).toUpperCase() + genre.slice(1) : 'All Movies' %>
+  </a>
+</p>
 
 <%- include('../partials/footer') %>

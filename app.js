@@ -8,6 +8,18 @@ const moviesRouter = require('./routes/movies');
 
 const app = express();
 
+const actorsRouter = require('./routes/actors');
+const directorsRouter = require('./routes/directors');
+const genresRouter = require('./routes/genres');
+const productionRouter = require('./routes/production');
+const streamingRouter = require('./routes/streamingPlatform');
+
+app.use('/actors', actorsRouter);
+app.use('/directors', directorsRouter);
+app.use('/genres', genresRouter);
+app.use('/production', productionRouter);
+app.use('/streamingPlatform', streamingRouter);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
