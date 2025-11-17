@@ -5,36 +5,44 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const moviesRouter = require('./routes/movies');
-
-const app = express();
-
 const actorsRouter = require('./routes/actors');
 const directorsRouter = require('./routes/directors');
 const genresRouter = require('./routes/genres');
 const productionRouter = require('./routes/production');
 const streamingRouter = require('./routes/streamingPlatform');
 
-app.use('/actors', actorsRouter);
-app.use('/directors', directorsRouter);
-app.use('/genres', genresRouter);
-app.use('/production', productionRouter);
-app.use('/streamingPlatform', streamingRouter);
+const app = express();
+
+// -----------------
+// MIDDLEWARE
+// -----------------
+app.use(logger('dev'));
+
+// ✅ Parse JSON bodies (for POST/PATCH/PUT requests)
+app.use(express.json());
+
+// ✅ Parse URL-encoded bodies (for HTML form submissions)
+app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// routes
+// -----------------
+// ROUTES
+// -----------------
+app.use('/actors', actorsRouter);
+app.use('/directors', directorsRouter);
+app.use('/genres', genresRouter);
+app.use('/production', productionRouter);
+app.use('/streamingPlatform', streamingRouter);
 app.use('/', indexRouter);
 app.use('/movies', moviesRouter);
 
-// catch 404 and forward to error handler
+// catch 404
 app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;

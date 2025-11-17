@@ -36,6 +36,14 @@ router.get('/sort/:field', async (req, res) => {
   }
 });
 
+// GET /directors/new → render form
+router.get('/new', (req, res) => {
+  res.render('pages/newDirector', {
+    title: 'Add New Director',
+    genres: [] // for header dropdown
+  });
+});
+
 // custom: movies by director
 router.get('/:id/movies', async (req, res) => {
   try {
@@ -61,6 +69,36 @@ router.get('/:id', async (req, res) => {
     res.json(rows[0]);
   } catch (err) {
     console.error('GET /directors/:id error', err);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+// POST new director
+router.post('/', async (req, res) => {
+  try {
+    const { first_name, last_name } = req.body;
+    if (!first_name || !last_name) return res.status(400).json({ error: "First and Last name are required" });
+
+    const [result] = await db.query(
+      'INSERT INTO director (first_name, last_name) VALUES (?, ?)',
+      [first_name, last_name]
+    );
+
+    res.json({ message: 'Director added', director_id: result.insertId });
+  } catch (err) {
+    console.error('POST /directors error', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// PATCH director by ID
+router.patch('/:id', async (req, res) => {
+  try {
+    const { first_name, last_name } = req.body;
+    await db.query('UPDATE director SET first_name = ?, last_name = ? WHERE director_id = ?', [first_name, last_name, req.params.id]);
+    res.json({ message: 'Director updated' });
+  } catch (err) {
+    console.error('PATCH /directors/:id error', err);
     res.status(500).json({ error: 'Database error' });
   }
 });

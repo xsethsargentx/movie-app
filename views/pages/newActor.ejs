@@ -1,0 +1,23 @@
+<%- include('../partials/header') %>
+
+<main class="main" id="main">
+  <div class="container">
+    <h1 class="page-title">Add a New Actor</h1>
+
+    <form action="/actors" method="POST" class="form">
+      <div class="form-group">
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required placeholder="Enter first name">
+      </div>
+
+      <div class="form-group">
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" required placeholder="Enter last name">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Add Actor</button>
+    </form>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

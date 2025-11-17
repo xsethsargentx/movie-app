@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Actors</title>
+</head>
+<body>
+  <h1>Actors</h1>
+
+  <form action="/actors" method="POST">
+    <input type="text" name="name" placeholder="Name" required />
+    <input type="number" name="age" placeholder="Age" required />
+    <button type="submit">Add Actor</button>
+  </form>
+
+  <h2>All Actors</h2>
+  <ul>
+    <% actors.forEach(actor => { %>
+      <li><%= actor.name %> - <%= actor.age %> years</li>
+    <% }) %>
+  </ul>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movies</title>
+</head>
+<body>
+  <h1>Movies</h1>
+
+  <form action="/movies" method="POST">
+    <input type="text" name="title" placeholder="Title" required />
+
+    <label>Genre ID:</label>
+    <input type="number" name="genre_id" placeholder="Genre ID" required />
+
+    <label>Director ID:</label>
+    <input type="number" name="director_id" placeholder="Director ID" required />
+
+    <label>Production ID:</label>
+    <input type="number" name="production_id" placeholder="Production ID" required />
+
+    <input type="number" name="release_year" placeholder="Release Year" required />
+    <button type="submit">Add Movie</button>
+  </form>
+
+  <h2>All Movies</h2>
+  <ul>
+    <% movies.forEach(movie => { %>
+      <li>
+        <strong><%= movie.title %></strong> - <%= movie.genre %> - <%= movie.director %> - <%= movie.production %> - <%= movie.release_year %>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>
